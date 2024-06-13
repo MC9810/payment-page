@@ -1,0 +1,31 @@
+<script src="https://pay.lenco.co/js/v1/inline.js"></script>
+
+<script>
+function getPaidWithLenco() {
+	LencoPay.getPaid({
+		key: '88dd921c0ecd73590459a1dd5a9343c77db0f3c344f222b9', // your Lenco public key
+		reference: 'ref-' + Date.now(), // a unique reference you generated
+		email: 'customer@email.com', // the customer's email address
+		amount: 1000, // the amount the customer is to pay
+		currency: "ZMW",
+		channels: ["card", "mobile-money"],
+		customer: {
+			firstName: "John",
+			lastName: "Doe",
+			phone: "0971111111",
+		},
+		onSuccess: function (response) {
+			//this happens after the payment is completed successfully
+			const reference = response.reference;
+			alert('Payment complete! Reference: ' + reference);
+			// Make an AJAX call to your server with the reference to verify the payment
+		},
+		onClose: function () {
+			alert('Payment was not completed, window closed.');
+		},
+		onConfirmationPending: function () {
+			alert('Your purchase will be completed when the payment is confirmed');
+		},
+	});
+}
+</script>
